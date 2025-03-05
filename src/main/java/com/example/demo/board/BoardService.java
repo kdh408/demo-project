@@ -48,7 +48,8 @@ public class BoardService {
     //특정한 게시글 불러오기
     public Board boardView(Integer id) {
 
-        return boardRepository.findById(id).get();
+//        return boardRepository.findById(id).get();
+        return boardRepository.findById(id).orElseThrow(() -> new BoardNotFoundException("Board with ID " + id + " not found"));
     }
 
 
