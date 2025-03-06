@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>게시물 작성폼</title>
+  <script type="text/javascript" src="/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+  <!--<script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>-->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,8 +34,8 @@
       box-sizing: border-box; /* 폭 계산에 padding 고려 */
     }
 
-    .layout textarea {
-      height: 200px; /* textarea를 더 길게 만듦 */
+    .layout textarea {a
+    height: 200px; /* textarea를 더 길게 만듦 */
     }
 
     .layout button[type="submit"] {
@@ -53,33 +55,63 @@
       background-color: #0056b3;
     }
   </style>
-  <!-- <script type="text/javascript" src="@{/js/info/ckeditor/ckeditor.js}"></script> -->
-  <!--<script> CKEDITOR.replace('ckeditor'); // 에디터로 생성 </script > -->
-
 </head>
+
 <body>
 <div class="layout">
-  <form action="/board/writepro" method="post" enctype="multipart/form-data">
+  <form action="@{/board/writepro}" method="post" enctype="multipart/form-data">
     <input name="title" type="text" placeholder="제목을 입력하세요">
-    <textarea name="content" placeholder="내용을 입력하세요"></textarea>
+    <textarea id="smarteditor" name="content" placeholder="내용을 입력하세요"></textarea>
+
 
     <input type="file" name="file">
     <button type="submit">작성</button>
   </form>
 </div>
-
-<script src="@{/js/ckeditor/ckeditor.js}"></script>
+<script src="/smarteditor/js/HuskyEZCreator.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // CKEditor 초기화
-    CKEDITOR.replace("ckeditor", {
-      width: "100%",
-      height: "400px",
-      filebrowserUploadUrl: "@{/bbs/ckeditor/ckEditorUpload}",
-      image_previewText: " "
-    });
-  });
-</script>
+  let oEditors=[]
 
+  smartEditor = function (){
+    console.log("Naver SmartEditor")
+    nhn.husky.EZCreator.createInIFrame({
+      oAppRef: oEditors,
+      elPlaceHolder: "editorTxt",
+      sSkinURI: "/smarteditor/SmartEditor2Skin.html",
+      fCreator: "CreateSEditor2"
+    })
+  }
+
+  $[document].ready(function (){
+    smartEditor()
+  })
+</script>
+<!--<script src="https://cdn.ckeditor.com/4.25.1-lts/standard/ckeditor.js"></script>
+<script>
+  const {
+    ClassicEditor,
+    Essentials,
+    Bold,
+    Italic,
+    Font,
+    Paragraph
+  } = CKEDITOR;
+
+  ClassicEditor
+          .create( document.querySelector( '#editor' ), {
+            licenseKey: '<YOUR_LICENSE_KEY>', // Create a free account on https://portal.ckeditor.com/checkout?plan=free
+            plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
+            toolbar: [
+              'undo', 'redo', '|', 'bold', 'italic', '|',
+              'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ]
+          } )
+          .then( editor => {
+            window.editor = editor;
+          } )
+          .catch( error => {
+            console.error( error );
+          } );
+</script>-->
 </body>
 </html>

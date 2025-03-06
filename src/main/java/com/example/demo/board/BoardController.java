@@ -1,10 +1,5 @@
 package com.example.demo.board;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.io.*;
-import java.util.UUID;
 
 
 @Controller //컨트롤러로 인식
@@ -26,13 +17,23 @@ public class BoardController {
     @Autowired  //의존성 주입.
     private BoardService boardService;
 
-    @GetMapping("/board/write")    //게시글 작성 폼을 보여주는 역할
+    @RequestMapping("/board/write")    //게시글 작성 폼을 보여주는 역할
     public String boardWriteForm() {
         return "/boardwrite";
     }
 
-    //@RequestMapping(value="/board/writepro", method=RequestMethod.POST)
-    @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
+   /* @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
+    public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
+
+        boardService.write(board, file);
+
+        model.addAttribute("message", "글 작성 완료");
+        model.addAttribute("searchUrl", "/board/list");
+
+        return "/message";
+    }*/
+
+    @RequestMapping("board/writepro")
     public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
 
         boardService.write(board, file);
@@ -42,7 +43,6 @@ public class BoardController {
 
         return "/message";
     }
-
 
     @GetMapping("/board/list")  //게시글 목록을 보여주는 페이지로 이동
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort =  "id", direction = Sort.Direction.DESC) Pageable pageable) {
