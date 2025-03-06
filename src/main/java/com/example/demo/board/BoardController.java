@@ -17,12 +17,23 @@ public class BoardController {
     @Autowired  //의존성 주입.
     private BoardService boardService;
 
-    @GetMapping("/board/write")    //게시글 작성 폼을 보여주는 역할
+    @RequestMapping("/board/write")    //게시글 작성 폼을 보여주는 역할
     public String boardWriteForm() {
         return "/boardwrite";
     }
 
-    @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
+   /* @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
+    public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
+
+        boardService.write(board, file);
+
+        model.addAttribute("message", "글 작성 완료");
+        model.addAttribute("searchUrl", "/board/list");
+
+        return "/message";
+    }*/
+
+    @RequestMapping("board/writepro")
     public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
 
         boardService.write(board, file);
@@ -32,7 +43,6 @@ public class BoardController {
 
         return "/message";
     }
-
 
     @GetMapping("/board/list")  //게시글 목록을 보여주는 페이지로 이동
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort =  "id", direction = Sort.Direction.DESC) Pageable pageable) {
