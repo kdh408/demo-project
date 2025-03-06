@@ -39,7 +39,7 @@ public class LoginController {
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
     public String dispLoginResult() {
-        return "/loginSuccess";  // "/board/list"로 연결 안됨..?
+        return  "redirect:http://localhost:8080/board/list";//"/loginSuccess";  // "/board/list"로 연결 안됨..?
     }
 
     // 로그아웃 결과 페이지

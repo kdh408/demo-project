@@ -1,10 +1,5 @@
 package com.example.demo.board;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import java.io.*;
-import java.util.UUID;
 
 
 @Controller //컨트롤러로 인식
@@ -31,7 +22,6 @@ public class BoardController {
         return "/boardwrite";
     }
 
-    //@RequestMapping(value="/board/writepro", method=RequestMethod.POST)
     @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
     public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
 
