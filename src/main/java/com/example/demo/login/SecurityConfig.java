@@ -32,7 +32,7 @@ import java.io.IOException;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {//extends WebSecurityConfiguration{
-    private final HttpSecurity httpSecurity;//WebSecurityConfigurerAdapter {
+//    private final HttpSecurity httpSecurity;//WebSecurityConfigurerAdapter {
     private LoginService loginService;
 
     @Bean
@@ -84,15 +84,15 @@ public class SecurityConfig {//extends WebSecurityConfiguration{
         );
 
         http
-                .csrf(csrf-> csrf.disable());
-       //         .authorizeHttpRequests(auth ->auth.anyRequest().permitAll());
+//                .csrf(csrf-> csrf.disable());
+                .authorizeHttpRequests(auth ->auth.anyRequest().permitAll());
 
         return http.build();
     }
 
-    @Bean
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
-    }
+//    @Bean
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
+//    }
 
 }
