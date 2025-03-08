@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.demo.S3Connection.S3Uploader;
 
 import java.io.File;
 import java.util.UUID;
@@ -17,11 +18,13 @@ public class BoardService {
     private BoardRepository boardRepository;
     @Autowired
     private LoginRepository loginRepository;
+    @Autowired
+    private S3Uploader s3Uploader;
 
     //글 작성 처리
     public void write(Board board, MultipartFile file, String email) throws Exception {
 
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
+       /* String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
         UUID uuid = UUID.randomUUID();
 
@@ -32,13 +35,14 @@ public class BoardService {
         File saveFile = new File(projectPath, fileName);
 
         file.transferTo(saveFile);
-
+*/
+        String imgURL = s3Uploader.upload(file);
         board.setUser(email);
         String name = loginRepository.findByEmail(email).get().getName().toString();
         board.setWriter(name);
 
-        board.setFilename(fileName);
-        board.setFilepath("/files/" + fileName);
+        //board.setFilename(imgURL);
+        board.setFilepath(imgURL);
 
         boardRepository.save(board);
 
