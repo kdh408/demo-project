@@ -112,14 +112,18 @@
             })
             .then(data => {
                 // result 값이 true면 이미 존재함(사용 불가), false면 존재하지 않음(사용 가능)
+                const submitButton = document.getElementById('submit-btn');
                 if (data.result === false) {
-                    alert("사용 가능한 이메일입니다.")
-                    isEmailVerified=true;
+                    alert("사용 가능한 이메일입니다.");
+                    isEmailVerified = true; // 이메일 확인 완료 상태
+                    submitButton.disabled = false; // 버튼 활성화
                 } else {
                     alert("이미 사용중인 이메일입니다.");
-                    isEmailVerified=false;
+                    isEmailVerified = false; // 이메일 확인 실패 상태
+                    submitButton.disabled = true; // 버튼 비활성화
                 }
             })
+
             .catch(error => {
                 console.error('Error:', error);
                 alert("중복 확인 중 오류가 발생했습니다.");
