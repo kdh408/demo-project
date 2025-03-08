@@ -78,12 +78,16 @@
 <div class="layout">
     <div style="text-align: right; margin-bottom: 10px;">
         <a href="/board/write" style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: #fff; border-radius: 4px; text-decoration: none;">글 작성</a>
-<!--        <a href="/user/logout/result" style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: #fff; border-radius: 4px; text-decoration: none;">로그아웃</a> -->
         <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
            style="display: inline-block;
            padding: 8px 16px;
-           backgroud-color: #007bff ; color: #000000;
+           color: #000000;
            border-radius: 4px; text-decoration: none;">로그아웃</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}"
+           style="display: inline-block;
+           padding: 8px 16px;
+           color: #000000;
+           border-radius: 4px; text-decoration: none;">관리자페이지</a>
     </div>
     <table>
         <thead>

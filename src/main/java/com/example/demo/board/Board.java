@@ -27,9 +27,8 @@ public class Board {
 
     private String filepath;
 
-    private String writer;
+    private String user;
 
     public void setFilename(String fileName) {
     }
-
 }
