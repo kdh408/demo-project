@@ -94,14 +94,16 @@
         <tr>
             <th>글번호</th>
             <th>제목</th>
+            <th>작성자</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="board : ${list}">
-            <td th:text="${board.id}">1</td>
+            <td th:text="${board.id}"></td>
             <td>
                 <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
             </td>
+            <td th:text="${board.user}"></td>
         </tr>
         </tbody>
     </table>
