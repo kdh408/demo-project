@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-@Controller //컨트롤러로 인식
+@Controller//컨트롤러로 인식
 public class BoardController {
 
     @Autowired  //의존성 주입.
@@ -87,5 +87,4 @@ public class BoardController {
 
         return "message";
     }
-
 }

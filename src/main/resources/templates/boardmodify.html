@@ -56,6 +56,16 @@
 
 <body>
 <div class="layout">
+  <div style="text-align: right; margin-bottom: 10px;">
+    <a th:href="@{/board/list}"
+       style="display: inline-block;
+       padding: 8px 16px;
+       background-color: #007bff;
+       color: #fff;
+       border-radius: 4px;
+       text-decoration: none;">글 목록</a>
+  </div>
+
   <form th:action="@{/board/update/{id}(id=${board.id})}" method="post" enctype="multipart/form-data">
     <input name="title" type="text" th:value="${board.title}" placeholder="제목을 입력하세요">
     <textarea name="content" placeholder="내용을 입력하세요" th:text="${board.content}"></textarea>

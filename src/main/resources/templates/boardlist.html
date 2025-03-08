@@ -83,11 +83,11 @@
            padding: 8px 16px;
            color: #000000;
            border-radius: 4px; text-decoration: none;">로그아웃</a>
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}"
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/user/admin}"
            style="display: inline-block;
            padding: 8px 16px;
            color: #000000;
-           border-radius: 4px; text-decoration: none;">관리자페이지</a>
+           border-radius: 4px; text-decoration: none;">회원 관리</a>
     </div>
     <table>
         <thead>

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class LoginDto {
     private Long id;
     private String email;
+    private String name;
     private String password;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
@@ -19,14 +20,16 @@ public class LoginDto {
         return Login.builder()
                 .id(id)
                 .email(email)
+                .name(name)
                 .password(password)
                 .build();
     }
 
     @Builder
-    public LoginDto(Long id, String email, String password) {
+    public LoginDto(Long id, String email, String name, String password) {
         this.id = id;
         this.email = email;
+        this.name = name;
         this.password = password;
     }
 }

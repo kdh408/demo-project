@@ -44,5 +44,14 @@ public class LoginService implements UserDetailsService {
         }
 
         return new User(userEntity.getEmail(), userEntity.getPassword(), authorities);
+
+    }
+
+    public List<Login> findAllMembers() {
+        return loginRepository.findAll();
+    }
+
+    public void userDelete(Long id) {
+        loginRepository.deleteById(id);
     }
 }

@@ -2,8 +2,10 @@ package com.example.demo.login;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -39,7 +41,7 @@ public class LoginController {
     // 로그인 결과 페이지
     @GetMapping("/user/login/result")
     public String dispLoginResult() {
-        return  "redirect:http://localhost:8080/board/list";
+        return  "redirect:/board/list";
     }
 
     // 로그아웃 결과 페이지
@@ -48,7 +50,21 @@ public class LoginController {
         return "/logout";
     }
 
-    // 접근 거부 페이지
+    //admin 회원관리 페이지
+    @GetMapping("/user/admin")
+    public String userAdmin(Model model){
+        List<Login> login = loginService.findAllMembers();
+        model.addAttribute("login", login);
+        return "/admin";
+    }
+
+    @GetMapping("/user/delete/{id}")
+    public String userDelete(@PathVariable("id") Long id) {
+        loginService.userDelete(id);
+
+        return "redirect:/user/admin";
+    }
+  /*  // 접근 거부 페이지
     @GetMapping("/user/denied")
     public String dispDenied() {
         return "/denied";
@@ -59,10 +75,7 @@ public class LoginController {
     public String dispMyInfo() {
         return "/myinfo";
     }
+    */
 
-    // 어드민 페이지
-    @GetMapping("/admin")
-    public String dispAdmin() {
-        return "/admin";
-    }
+
 }

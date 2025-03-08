@@ -20,13 +20,17 @@ public class Login {
     @Column(length = 20, nullable = false)
     private String email;
 
+    @Column(length = 20, nullable = false)
+    private String name;
+
     @Column(length = 100, nullable = false)
     private String password;
 
     @Builder
-    public Login(Long id, String email, String password) {
+    public Login(Long id, String email, String name, String password) {
         this.id = id;
         this.email = email;
+        this.name = name;
         this.password = password;
     }
 }

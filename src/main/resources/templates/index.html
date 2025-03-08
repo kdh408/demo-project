@@ -31,21 +31,5 @@
            border-radius: 10px;
            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
            padding: 10px;">회원가입</a>
-<a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/user/info}"
-   style="width: 100%; /* 가로를 줄임 */
-           margin: 40px auto;
-           color: #fff;
-           background-color: #007bff;
-           border-radius: 10px;
-           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-           padding: 10px;">내정보</a>
-<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}"
-   style="width: 100%; /* 가로를 줄임 */
-           margin: 40px auto;
-           color: #fff;
-           background-color: #007bff;
-           border-radius: 10px;
-           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-           padding: 10px;">admin</a>
 </body>
 </html>
