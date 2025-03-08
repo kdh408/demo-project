@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-                xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입 페이지</title>
@@ -64,8 +64,8 @@
 <form class = "layout" action="/user/signup" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-<!--    <input type="text" name="email" placeholder="이메일 입력해주세요">-->
-<!--    <a th:href="@{/user/idcheck}" >중복확인</a>-->
+    <!--    <input type="text" name="email" placeholder="이메일 입력해주세요">-->
+    <!--    <a th:href="@{/user/idcheck}" >중복확인</a>-->
     <div>
         <input type="text" name="email" id="email-input" placeholder="이메일 입력해주세요">
         <button type="button" onclick="checkDuplicateId()">중복확인</button>
@@ -74,13 +74,15 @@
     <input type="text" name="name" placeholder="이름">
     <input type="password" name="password" placeholder="비밀번호">
 
-    <button type="submit">가입하기</button>
+    <button id="submit-btn" type="submit" disabled>가입하기</button>
 </form>
 <form class="layout" action="/" method="get">
     <button type="submit">메인 페이지</button>
 </form>
 
 <script th:inline="javascript">
+    let isEmailVerified = false;
+
     function checkDuplicateId() {
         const email = document.getElementById('email-input').value;
 
@@ -111,9 +113,11 @@
             .then(data => {
                 // result 값이 true면 이미 존재함(사용 불가), false면 존재하지 않음(사용 가능)
                 if (data.result === false) {
-                    alert("사용 가능한 이메일입니다.");
+                    alert("사용 가능한 이메일입니다.")
+                    isEmailVerified=true;
                 } else {
                     alert("이미 사용중인 이메일입니다.");
+                    isEmailVerified=false;
                 }
             })
             .catch(error => {
