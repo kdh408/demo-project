@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -15,7 +17,7 @@ public class LoginController {
     // 메인 페이지
     @GetMapping("/")
     public String index() {
-        return "/index";
+        return "redirect:/board/list";
     }
 
     // 회원가입 페이지

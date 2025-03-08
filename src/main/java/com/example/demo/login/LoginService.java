@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Service
@@ -53,5 +54,18 @@ public class LoginService implements UserDetailsService {
 
     public void userDelete(Long id) {
         loginRepository.deleteById(id);
+    }
+
+    public HashMap<String, Object>  emailOverlap(String useremail) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", loginRepository.existsByEmail(useremail));
+        return map;
+    }
+
+    //닉네임 중복 검사ß
+    public HashMap<String, Object> nameOverlap(String username) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("result", loginRepository.existsByName(username));
+        return map;
     }
 }

@@ -29,6 +29,8 @@ public class Board {
 
     private String user;
 
+    private String writer;
+
     public void setFilename(String fileName) {
     }
 }

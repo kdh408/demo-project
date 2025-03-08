@@ -1,5 +1,6 @@
 package com.example.demo.board;
 
+import com.example.demo.login.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,9 +15,11 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private LoginRepository loginRepository;
 
     //글 작성 처리
-    public void write(Board board, MultipartFile file) throws Exception {
+    public void write(Board board, MultipartFile file, String email) throws Exception {
 
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files";
 
@@ -29,6 +32,10 @@ public class BoardService {
         File saveFile = new File(projectPath, fileName);
 
         file.transferTo(saveFile);
+
+        board.setUser(email);
+        String name = loginRepository.findByEmail(email).get().getName().toString();
+        board.setWriter(name);
 
         board.setFilename(fileName);
         board.setFilepath("/files/" + fileName);
@@ -47,7 +54,6 @@ public class BoardService {
 
     //특정한 게시글 불러오기
     public Board boardView(Integer id) {
-
         return boardRepository.findById(id).get();
     }
 

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,10 @@ public class BoardController {
 
    @PostMapping("/board/writepro") //게시글 작성을 처리하고 작성 완료 메시지와 함께 메시지 페이지로 이동
     public String boardWritePro(Board board, Model model, @RequestParam("file") MultipartFile file) throws Exception{
-
-        boardService.write(board, file);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) principal;
+        String email = userDetails.getUsername();
+        boardService.write(board, file,email);
 
         model.addAttribute("message", "글 작성 완료");
         model.addAttribute("searchUrl", "/board/list");
@@ -80,8 +84,7 @@ public class BoardController {
         boardTemp.setTitle(board.getTitle());
         boardTemp.setContent(board.getContent());
 
-        boardService.write(boardTemp, file);
-
+//        boardService.write(boardTemp, file);
         model.addAttribute("message", "글 수정 완료");
         model.addAttribute("searchUrl", "/board/list");
 

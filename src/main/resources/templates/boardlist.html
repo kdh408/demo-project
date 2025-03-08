@@ -77,12 +77,33 @@
 <body>
 <div class="layout">
     <div style="text-align: right; margin-bottom: 10px;">
-        <a href="/board/write" style="display: inline-block; padding: 8px 16px; background-color: #007bff; color: #fff; border-radius: 4px; text-decoration: none;">글 작성</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/user/login}"
+           style="display: inline-block;
+           padding: 8px 16px;
+           background-color: #007bff;
+           color: #fff; border-radius: 4px;
+           text-decoration: none;">로그인</a>
+
+        <a sec:authorize="isAnonymous()" th:href="@{/user/signup}"
+           style="display: inline-block;
+           padding: 8px 16px;
+           background-color: #007bff;
+           color: #fff; border-radius: 4px;
+           text-decoration: none;">회원가입</a>
+
+        <a sec:authorize="isAuthenticated()" th:href="@{/board/write}"
+           style="display: inline-block;
+           padding: 8px 16px;
+           background-color: #007bff;
+           color: #fff; border-radius: 4px;
+           text-decoration: none;">글 작성</a>
+
         <a sec:authorize="isAuthenticated()" th:href="@{/user/logout}"
            style="display: inline-block;
            padding: 8px 16px;
            color: #000000;
            border-radius: 4px; text-decoration: none;">로그아웃</a>
+
         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/user/admin}"
            style="display: inline-block;
            padding: 8px 16px;
@@ -103,7 +124,7 @@
             <td>
                 <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
             </td>
-            <td th:text="${board.user}"></td>
+            <td th:text="${board.writer}"></td>
         </tr>
         </tbody>
     </table>
